@@ -1,0 +1,16 @@
+name = "wedding-photo-upload"
+main = "worker/index.ts"
+compatibility_date = "2026-05-26"
+
+[assets]
+directory = "./dist"
+binding = "ASSETS"
+
+[vars]
+R2_BUCKET_NAME = "wedding-photo-upload"
+ALLOWED_ORIGIN = "http://localhost:5173"
+
+# Set secrets before deploy:
+# wrangler secret put R2_ACCOUNT_ID
+# wrangler secret put R2_ACCESS_KEY_ID
+# wrangler secret put R2_SECRET_ACCESS_KEY
