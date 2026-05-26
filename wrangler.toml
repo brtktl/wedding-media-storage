@@ -1,4 +1,4 @@
-name = "wedding-photo-upload"
+name = "wedding-media-storage"
 main = "worker/index.ts"
 compatibility_date = "2026-05-26"
 
