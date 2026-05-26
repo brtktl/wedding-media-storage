@@ -53,22 +53,22 @@ export async function handleRequest(
 
 async function handlePresign(request: Request, env: Env, signer: Signer): Promise<Response> {
   if (request.method !== "POST") {
-    return jsonResponse({ error: "Method not allowed." }, env, 405);
+    return jsonResponse({ error: "Bu yönteme izin verilmiyor." }, env, 405);
   }
 
   let body: PresignRequestBody;
   try {
     body = (await request.json()) as PresignRequestBody;
   } catch {
-    return jsonResponse({ error: "Request body must be valid JSON." }, env, 400);
+    return jsonResponse({ error: "İstek gövdesi geçerli JSON olmalı." }, env, 400);
   }
 
   if (typeof body.guestName !== "string" || !body.guestName.trim()) {
-    return jsonResponse({ error: "Guest name is required." }, env, 400);
+    return jsonResponse({ error: "Misafir adı gerekli." }, env, 400);
   }
 
   if (!Array.isArray(body.files) || body.files.length === 0) {
-    return jsonResponse({ error: "At least one file is required." }, env, 400);
+    return jsonResponse({ error: "En az bir dosya gerekli." }, env, 400);
   }
 
   const uploadFiles: UploadFileMetadata[] = [];
@@ -106,7 +106,7 @@ function normalizeFileMetadata(
   value: unknown,
 ): { ok: true; file: UploadFileMetadata } | { ok: false; reason: string } {
   if (typeof value !== "object" || value === null) {
-    return { ok: false, reason: "Each file must include name, type, and size." };
+    return { ok: false, reason: "Her dosyada ad, tür ve boyut bilgisi olmalı." };
   }
 
   const candidate = value as Partial<UploadFileMetadata>;
@@ -115,7 +115,7 @@ function normalizeFileMetadata(
     typeof candidate.type !== "string" ||
     typeof candidate.size !== "number"
   ) {
-    return { ok: false, reason: "Each file must include name, type, and size." };
+    return { ok: false, reason: "Her dosyada ad, tür ve boyut bilgisi olmalı." };
   }
 
   const file = {

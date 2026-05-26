@@ -74,7 +74,7 @@ function App() {
     const trimmedName = guestName.trim();
 
     if (trimmedName.length < 2) {
-      setFormError("Please enter your full name.");
+      setFormError("Lütfen adınızı ve soyadınızı girin.");
       return;
     }
 
@@ -130,19 +130,19 @@ function App() {
 
       const body = (await response.json()) as Partial<PresignResponse> & { error?: string };
       if (!response.ok) {
-        throw new Error(body.error ?? "Could not prepare uploads.");
+        throw new Error(body.error ?? "Yüklemeler hazırlanamadı.");
       }
 
       const uploads = body.uploads;
       if (!uploads) {
-        throw new Error("Upload details were missing.");
+        throw new Error("Yükleme bilgileri eksik.");
       }
 
       await Promise.all(
         validItems.map((item, index) => uploadFile(item, uploads[index])),
       );
     } catch (error) {
-      const message = error instanceof Error ? error.message : "Upload failed.";
+      const message = error instanceof Error ? error.message : "Yükleme başarısız oldu.";
       validItems.forEach((item) =>
         updateItem(item.id, {
           status: "failed",
@@ -158,7 +158,7 @@ function App() {
       updateItem(item.id, {
         status: "failed",
         progress: 0,
-        error: "Upload details were missing.",
+        error: "Yükleme bilgileri eksik.",
       });
       return;
     }
@@ -178,7 +178,7 @@ function App() {
       updateItem(item.id, {
         status: "failed",
         progress: 0,
-        error: error instanceof Error ? error.message : "Upload failed.",
+        error: error instanceof Error ? error.message : "Yükleme başarısız oldu.",
       });
     }
   }
@@ -210,12 +210,12 @@ function App() {
                 <Cloud size={20} aria-hidden="true" />
               </span>
               <div>
-                <p className="text-sm font-semibold text-moss">Wedding memories</p>
-                <p className="text-xs text-ink/55">Photo and video upload</p>
+                <p className="text-sm font-semibold text-moss">Düğün anıları</p>
+                <p className="text-xs text-ink/55">Fotoğraf ve video yükleme</p>
               </div>
             </div>
             <span className="rounded-full border border-moss/15 bg-white/55 px-3 py-1 text-xs font-medium text-moss">
-              QR upload
+              QR yükleme
             </span>
           </header>
 
@@ -223,15 +223,15 @@ function App() {
             <div className="order-2 lg:order-1">
               <div className="relative aspect-[4/5] min-h-[340px] overflow-hidden rounded-[28px] bg-moss shadow-soft">
                 <img
-                  alt="Wedding table with guests sharing memories"
+                  alt="Misafirlerin anılarını paylaştığı düğün masası"
                   className="h-full w-full object-cover opacity-95"
                   src="https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&w=900&q=82"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-ink/55 via-ink/8 to-transparent" />
                 <div className="absolute bottom-0 left-0 right-0 p-6 text-linen">
-                  <p className="font-serif text-3xl leading-tight">Share the moments we missed.</p>
+                  <p className="font-serif text-3xl leading-tight">Kaçırdığımız anları paylaşın.</p>
                   <p className="mt-3 max-w-xs text-sm leading-6 text-linen/82">
-                    Upload from your phone while the celebration is still fresh.
+                    Kutlama hâlâ tazeyken telefonunuzdan yükleyin.
                   </p>
                 </div>
               </div>
@@ -252,15 +252,15 @@ function App() {
                   >
                     <div className="mb-8">
                       <p className="mb-3 text-sm font-semibold uppercase tracking-[0.18em] text-brass">
-                        Welcome
+                        Hoş geldiniz
                       </p>
                       <h1 className="font-serif text-5xl leading-[0.98] text-ink sm:text-6xl">
-                        Add your photos to the wedding album
+                        Fotoğraflarınızı düğün albümüne ekleyin
                       </h1>
                     </div>
 
                     <label className="mb-3 block text-sm font-semibold text-moss" htmlFor="guest-name">
-                      Full name
+                      Ad soyad
                     </label>
                     <div className="flex min-h-16 items-center gap-3 rounded-2xl border border-moss/18 bg-white/80 px-4 shadow-soft backdrop-blur">
                       <UserRound className="shrink-0 text-moss" size={22} aria-hidden="true" />
@@ -270,7 +270,7 @@ function App() {
                         className="h-14 w-full bg-transparent text-lg font-medium text-ink outline-none placeholder:text-ink/35"
                         id="guest-name"
                         onChange={(event) => setGuestName(event.target.value)}
-                        placeholder="Jane Doe"
+                        placeholder="Ad Soyad"
                         type="text"
                         value={guestName}
                       />
@@ -281,7 +281,7 @@ function App() {
                       className="mt-5 inline-flex h-14 w-full items-center justify-center gap-2 rounded-2xl bg-moss px-5 text-base font-semibold text-white shadow-soft transition hover:bg-[#3f5b4f] focus:outline-none focus:ring-4 focus:ring-sage/35"
                       type="submit"
                     >
-                      Continue
+                      Devam et
                       <ChevronRight size={20} aria-hidden="true" />
                     </button>
                   </m.form>
@@ -297,11 +297,11 @@ function App() {
                   >
                     <div className="mb-6 flex items-start justify-between gap-4">
                       <div>
-                        <p className="text-sm font-semibold text-brass">Hi, {confirmedName}</p>
-                        <h1 className="mt-2 font-serif text-4xl leading-tight sm:text-5xl">Upload memories</h1>
+                        <p className="text-sm font-semibold text-brass">Merhaba, {confirmedName}</p>
+                        <h1 className="mt-2 font-serif text-4xl leading-tight sm:text-5xl">Anıları yükleyin</h1>
                       </div>
                       <button
-                        aria-label="Change name"
+                        aria-label="Adı değiştir"
                         className="grid h-10 w-10 shrink-0 place-items-center rounded-full border border-moss/15 bg-white/70 text-moss transition hover:bg-white"
                         onClick={() => setConfirmedName("")}
                         type="button"
@@ -322,9 +322,9 @@ function App() {
                       <span className="mx-auto mb-4 grid h-16 w-16 place-items-center rounded-full bg-petal text-moss transition group-hover:scale-105">
                         <ImagePlus size={28} aria-hidden="true" />
                       </span>
-                      <span className="block text-lg font-semibold">Tap to choose photos or videos</span>
+                      <span className="block text-lg font-semibold">Fotoğraf veya video seçmek için dokunun</span>
                       <span className="mt-2 block text-sm leading-6 text-ink/58">
-                        Multiple uploads are welcome. Each file can be up to {MAX_FILE_SIZE_LABEL}.
+                        Birden fazla dosya yükleyebilirsiniz. Her dosya en fazla {MAX_FILE_SIZE_LABEL} olabilir.
                       </span>
                     </label>
 
@@ -332,9 +332,9 @@ function App() {
                       <div className="mt-5 rounded-[24px] border border-moss/12 bg-white/70 p-4 shadow-soft backdrop-blur">
                         <div className="mb-4 flex items-center justify-between gap-3">
                           <div>
-                            <p className="text-sm font-semibold text-moss">Uploads</p>
+                            <p className="text-sm font-semibold text-moss">Yüklemeler</p>
                             <p className="text-xs text-ink/55">
-                              {stats.complete} complete · {stats.active} active · {stats.failed} failed
+                              {stats.complete} tamamlandı · {stats.active} aktif · {stats.failed} başarısız
                             </p>
                           </div>
                           <button
@@ -343,7 +343,7 @@ function App() {
                             type="button"
                           >
                             <UploadCloud size={16} aria-hidden="true" />
-                            Add more
+                            Daha fazla ekle
                           </button>
                         </div>
 
@@ -408,7 +408,7 @@ function UploadRow({
             <div className="flex shrink-0 items-center gap-1">
               {item.status === "failed" ? (
                 <button
-                  aria-label={`Retry ${item.file.name}`}
+                  aria-label={`${item.file.name} dosyasını tekrar yükle`}
                   className="grid h-8 w-8 place-items-center rounded-full text-moss transition hover:bg-sage/15"
                   onClick={onRetry}
                   type="button"
@@ -417,7 +417,7 @@ function UploadRow({
                 </button>
               ) : null}
               <button
-                aria-label={`Remove ${item.file.name}`}
+                aria-label={`${item.file.name} dosyasını kaldır`}
                 className="grid h-8 w-8 place-items-center rounded-full text-ink/45 transition hover:bg-petal/55 hover:text-ink"
                 onClick={onRemove}
                 type="button"
@@ -488,9 +488,9 @@ function putWithProgress(
         return;
       }
 
-      reject(new Error(`Upload failed with status ${request.status}.`));
+      reject(new Error(`Yükleme ${request.status} durum koduyla başarısız oldu.`));
     };
-    request.onerror = () => reject(new Error("Network error while uploading."));
+    request.onerror = () => reject(new Error("Yükleme sırasında ağ hatası oluştu."));
     request.send(file);
   });
 }
@@ -511,12 +511,12 @@ function getStatusIcon(status: UploadStatus): { className: string; node: ReactEl
 }
 
 function getStatusLabel(item: UploadItem): string {
-  if (item.status === "queued") return "Queued";
-  if (item.status === "signing") return "Preparing";
-  if (item.status === "uploading") return `${item.progress}% uploaded`;
-  if (item.status === "complete") return "Uploaded";
+  if (item.status === "queued") return "Sırada";
+  if (item.status === "signing") return "Hazırlanıyor";
+  if (item.status === "uploading") return `%${item.progress} yüklendi`;
+  if (item.status === "complete") return "Yüklendi";
 
-  return "Needs attention";
+  return "İlgilenmeniz gerekiyor";
 }
 
 function formatBytes(bytes: number): string {

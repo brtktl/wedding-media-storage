@@ -38,7 +38,7 @@ describe("upload rules", () => {
   it("rejects unsupported and oversized files", () => {
     expect(validateUploadFile({ name: "notes.pdf", type: "application/pdf", size: 1 })).toEqual({
       ok: false,
-      reason: "Only photos and videos can be uploaded.",
+      reason: "Yalnızca fotoğraf ve video yüklenebilir.",
     });
     expect(
       validateUploadFile({
@@ -46,6 +46,6 @@ describe("upload rules", () => {
         type: "video/quicktime",
         size: MAX_FILE_SIZE_BYTES + 1,
       }),
-    ).toEqual({ ok: false, reason: "Files must be 100MB or smaller." });
+    ).toEqual({ ok: false, reason: "Dosyalar 100MB veya daha küçük olmalı." });
   });
 });

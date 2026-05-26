@@ -43,19 +43,19 @@ export function isSupportedMediaType(type: string): boolean {
 
 export function validateUploadFile(file: UploadFileMetadata): FileValidationResult {
   if (!file.name.trim()) {
-    return { ok: false, reason: "File name is missing." };
+    return { ok: false, reason: "Dosya adı eksik." };
   }
 
   if (!isSupportedMediaType(file.type)) {
-    return { ok: false, reason: "Only photos and videos can be uploaded." };
+    return { ok: false, reason: "Yalnızca fotoğraf ve video yüklenebilir." };
   }
 
   if (file.size <= 0) {
-    return { ok: false, reason: "This file appears to be empty." };
+    return { ok: false, reason: "Bu dosya boş görünüyor." };
   }
 
   if (file.size > MAX_FILE_SIZE_BYTES) {
-    return { ok: false, reason: `Files must be ${MAX_FILE_SIZE_LABEL} or smaller.` };
+    return { ok: false, reason: `Dosyalar ${MAX_FILE_SIZE_LABEL} veya daha küçük olmalı.` };
   }
 
   return { ok: true };

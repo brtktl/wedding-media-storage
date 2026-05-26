@@ -33,7 +33,7 @@ describe("presign endpoint", () => {
     );
 
     expect(response.status).toBe(400);
-    await expect(response.json()).resolves.toEqual({ error: "Guest name is required." });
+    await expect(response.json()).resolves.toEqual({ error: "Misafir adı gerekli." });
   });
 
   it("rejects unsupported file types", async () => {
@@ -45,7 +45,7 @@ describe("presign endpoint", () => {
 
     expect(response.status).toBe(400);
     await expect(response.json()).resolves.toEqual({
-      error: "Only photos and videos can be uploaded.",
+      error: "Yalnızca fotoğraf ve video yüklenebilir.",
     });
   });
 
@@ -60,7 +60,7 @@ describe("presign endpoint", () => {
     );
 
     expect(response.status).toBe(400);
-    await expect(response.json()).resolves.toEqual({ error: "Files must be 100MB or smaller." });
+    await expect(response.json()).resolves.toEqual({ error: "Dosyalar 100MB veya daha küçük olmalı." });
   });
 
   it("returns upload descriptors for valid files", async () => {
