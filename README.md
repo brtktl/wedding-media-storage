@@ -43,6 +43,18 @@ npm run build
 npm run worker:dev
 ```
 
+## Cloudflare Pages Deployment
+
+If deploying with Cloudflare Pages, use:
+
+```text
+Build command: npm run build
+Build output directory: dist
+Functions directory: functions
+```
+
+The Pages Function at `/api/presign` reuses the same signing logic as the Worker deployment.
+
 ## Cloudflare R2 Setup
 
 Create an R2 bucket and S3-compatible API token, then set Worker secrets:
@@ -53,7 +65,7 @@ wrangler secret put R2_ACCESS_KEY_ID
 wrangler secret put R2_SECRET_ACCESS_KEY
 ```
 
-Set non-secret values in `wrangler.toml` or Cloudflare dashboard environment variables:
+Set non-secret values in `wrangler.toml`, Pages project settings, or Worker dashboard environment variables:
 
 ```text
 R2_BUCKET_NAME=wedding-photo-upload
